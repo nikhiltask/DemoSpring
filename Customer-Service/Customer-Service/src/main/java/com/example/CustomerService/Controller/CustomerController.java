@@ -7,6 +7,8 @@ import com.example.CustomerService.Model.Customer;
 import com.example.CustomerService.Model.RequestPut;
 import com.example.CustomerService.Model.RequireResponce;
 import com.example.CustomerService.Service.CustomerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +26,12 @@ public class CustomerController {
     private RestTemplate restTemplate;
     @Autowired
     private FeignClientsIMP feignClent;
-
+    private static Logger logger = LoggerFactory.getLogger(CustomerController.class);
     @GetMapping("/customers")
     public ResponseEntity<List<Customer>> getList(){
+        logger.info("Customer complete list");
         List<Customer> ls=service.getCustomers();
+        logger.info("Customer list",ls);
         return  new ResponseEntity<List <Customer>>(ls , HttpStatus.OK);
     }
 
